@@ -1,5 +1,12 @@
-<main class="container">
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+<main class="container mx-auto p-4">
+  <header>
+    <h1 class="text-4xl font-bold">Rollcall</h1>
+  </header>
+  <p class="alert alert-info" role="alert">
+    <%= get_flash(@conn, :info) %>
+  </p>
+  <p class="alert alert-danger" role="alert">
+    <%= get_flash(@conn, :error) %>
+  </p>
   <%= @inner_content %>
 </main>
