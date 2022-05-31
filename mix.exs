@@ -20,7 +20,7 @@ defmodule Rollcall.MixProject do
   def application do
     [
       mod: {Rollcall.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :ueberauth, :ueberauth_google]
     ]
   end
 
@@ -49,7 +49,8 @@ defmodule Rollcall.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:elixir_auth_google, "~> 1.6.3"}
+      {:ueberauth, "~> 0.6"},
+      {:ueberauth_google, "~> 0.7"}
     ]
   end
 

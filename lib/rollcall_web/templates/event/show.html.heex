@@ -1,0 +1,38 @@
+<h1>Show Event</h1>
+
+<ul>
+
+  <li>
+    <strong>Start date:</strong>
+    <%= @event.start_date %>
+  </li>
+
+  <li>
+    <strong>End date:</strong>
+    <%= @event.end_date %>
+  </li>
+
+  <li>
+    <strong>Num people:</strong>
+    <%= @event.num_people %>
+  </li>
+
+  <li>
+    <strong>Start hour:</strong>
+    <%= @event.start_hour %>
+  </li>
+
+  <li>
+    <strong>End hour:</strong>
+    <%= @event.end_hour %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @event.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span> |
+<span><%= link "Back", to: Routes.event_path(@conn, :index) %></span>

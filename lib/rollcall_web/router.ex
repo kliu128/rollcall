@@ -18,6 +18,16 @@ defmodule RollcallWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    resources "/events", EventController
+  end
+
+  scope "/auth", RollcallWeb do
+    pipe_through :browser
+
+  	get "/signout", AuthController, :signout
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
 
   # Other scopes may use custom stacks.
