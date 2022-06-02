@@ -5,31 +5,39 @@
     </div>
   <% end %>
 
-  <%= label f, :start_date %>
-  <%= date_select f, :start_date %>
-  <%= error_tag f, :start_date %>
+  <h1 class="text-4xl mb-4"><%= text_input f, :name, placeholder: "New Event" %></h1>
+  <%= error_tag f, :name %>
 
-  <%= label f, :end_date %>
-  <%= date_select f, :end_date %>
-  <%= error_tag f, :end_date %>
+  <div class={"mb-4 #{if f.errors[:start_date], do: "~critical", else: "~neutral"} @low"}>
+    <%= label f, :start_date, "Any time from...", class: "label" %>
+    <%= date_input f, :start_date, class: "field my-2", id: "start-date" %>
+    <p class="support"><%= error_tag f, :start_date %></p>
+  </div>
 
-  <%= label f, :num_people %>
-  <%= number_input f, :num_people %>
-  <%= error_tag f, :num_people %>
+  <div class={"mb-4 #{if f.errors[:end_date], do: "~critical", else: "~neutral"} @low"}>
+    <%= label f, :end_date, "to...", class: "label" %>
+    <%= date_input f, :end_date, class: "field my-2", id: "end-date" %>
+    <p class="support"><%= error_tag f, :end_date %></p>
+  </div>
+
+  <script>
+    document.querySelector("#start-date").value = new Date().toLocaleDateString("en-CA");
+    const date = new Date();
+    date.setDate(date.getDate() + 7);
+    document.querySelector("#end-date").value = date.toLocaleDateString("en-CA");
+  </script>
+
+  <div class={"mb-4 #{if f.errors[:num_people], do: "~critical", else: "~neutral"} @low"}>
+    <%= label f, :num_people, "How many people? (Including you!)", class: "label" %>
+    <%= number_input f, :num_people, class: "field my-2" %>
+    <p class="support"><%= error_tag f, :num_people %></p>
+  </div>
 
   <%= label f, :times %>
   <%= text_input f, :times %>
   <%= error_tag f, :times %>
 
-  <%= label f, :end_hour %>
-  <%= number_input f, :end_hour %>
-  <%= error_tag f, :end_hour %>
-
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
-
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save", class: "button ~primary @high" %>
   </div>
 </.form>

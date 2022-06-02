@@ -5,7 +5,7 @@ defmodule Rollcall.Events.Event do
   schema "events" do
     field :end_date, :date
     field :name, :string
-    field :num_people, :integer
+    field :num_people, :integer, default: 1
     field :start_date, :date
     field :times, :map
     field :user_id, :id

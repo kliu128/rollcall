@@ -8,7 +8,17 @@
 </nav>
 
 <main class="container mx-auto p-5">
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <%= if get_flash(@conn, :info) do %>
+  <p class="card ~positive @low mb-4" role="alert">
+    <%= get_flash(@conn, :info) %>
+  </p>
+  <% end %>
+
+  <%= if get_flash(@conn, :error) do %>
+  <p class="card ~critical @low mb-4" role="alert">
+    <%= get_flash(@conn, :error) %>
+  </p>
+  <% end %>
+
   <%= @inner_content %>
 </main>
