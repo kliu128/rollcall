@@ -2,6 +2,7 @@ defmodule Rollcall.Events.Event do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
   schema "events" do
     field :end_date, :date
     field :name, :string

@@ -10,6 +10,7 @@ defmodule RollcallWeb.EventLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:times, %{})
      |> assign(:changeset, changeset)}
   end
 
@@ -30,26 +31,13 @@ defmodule RollcallWeb.EventLive.FormComponent do
   def handle_event("toggle_time", %{"time" => time, "toggle" => toggle}, socket) do
     IO.puts "TOGGLE TIME #{toggle} #{time}"
     {integer, ""} = Integer.parse(time)
-    event = %{socket.assigns.event | times: Map.put(socket.assigns.event.times, integer, toggle == "0" )}
-    event |> inspect() |> IO.puts
+    times = Map.put(socket.assigns.times, integer, toggle == "0" )
     # IO.puts event
-    {:noreply, assign(socket, :event, event)}
-  end
-
-  defp save_event(socket, :edit, event_params) do
-    case Events.update_event(socket.assigns.event, event_params) do
-      {:ok, _event} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Event updated successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, :changeset, changeset)}
-    end
+    {:noreply, assign(socket, :times, times)}
   end
 
   defp save_event(socket, :new, event_params) do
+    event_params = Map.put(event_params, "times", socket.assigns.times)
     case Events.create_event(event_params) do
       {:ok, _event} ->
         {:noreply,

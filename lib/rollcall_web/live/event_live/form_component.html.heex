@@ -42,7 +42,7 @@
       <div>
         <%= for t <- 0..23 do %>
           <%= label f, "times-#{t}", t, class: "label my-2" %>
-          <input type="checkbox" phx-target={@myself} phx-click="toggle_time" id={"times-#{t}"} phx-value-time={t} phx-value-toggle={if @event.times[t] do 1 else 0 end} checked={@event.times[t]}>
+          <input type="checkbox" phx-target={@myself} phx-click="toggle_time" id={"times-#{t}"} phx-value-time={t} phx-value-toggle={if @times[t] do 1 else 0 end} checked={@times[t]}>
         <% end %>
       </div>
       <p class="support"><%= error_tag f, :times %></p>
