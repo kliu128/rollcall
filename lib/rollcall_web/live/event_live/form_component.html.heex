@@ -1,0 +1,55 @@
+<div>
+  <.form
+    let={f}
+    for={@changeset}
+    id="event-form"
+    phx-target={@myself}
+    phx-submit="save">
+
+    <header class="mb-4">
+      <h1 class="text-4xl"><%= text_input f, :name, placeholder: "New Event" %></h1>
+      <p class="support ~critical"><%= error_tag f, :name %></p>
+    </header>
+
+    <div class={"mb-4 #{if f.errors[:start_date], do: "~critical", else: "~neutral"} @low"}>
+      <%= label f, :start_date, "Any time from...", class: "label" %>
+      <%= date_input f, :start_date, class: "field my-2", id: "start-date" %>
+      <p class="support"><%= error_tag f, :start_date %></p>
+    </div>
+
+    <div class={"mb-4 #{if f.errors[:end_date], do: "~critical", else: "~neutral"} @low"}>
+      <%= label f, :end_date, "to...", class: "label" %>
+      <%= date_input f, :end_date, class: "field my-2", id: "end-date" %>
+      <p class="support"><%= error_tag f, :end_date %></p>
+    </div>
+
+    <script>
+      // Populate the start date with the current date and end date with the current date + 7 days
+      document.querySelector("#start-date").value = new Date().toLocaleDateString("en-CA");
+      const date = new Date();
+      date.setDate(date.getDate() + 7);
+      document.querySelector("#end-date").value = date.toLocaleDateString("en-CA");
+    </script>
+
+    <div class={"mb-4 #{if f.errors[:num_people], do: "~critical", else: "~neutral"} @low"}>
+      <%= label f, :num_people, "How many people? (Including you!)", class: "label" %>
+      <%= number_input f, :num_people, class: "field my-2" %>
+      <p class="support"><%= error_tag f, :num_people %></p>
+    </div>
+
+    <div class={"mb-4 #{if f.errors[:times], do: "~critical", else: "~neutral"} @low"}>
+      <%= label f, :times, class: "label" %>
+      <div>
+        <%= for t <- 0..23 do %>
+          <%= label f, "times-#{t}", t, class: "label my-2" %>
+          <input type="checkbox" phx-target={@myself} phx-click="toggle_time" id={"times-#{t}"} phx-value-time={t} phx-value-toggle={if @event.times[t] do 1 else 0 end} checked={@event.times[t]}>
+        <% end %>
+      </div>
+      <p class="support"><%= error_tag f, :times %></p>
+    </div>
+
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving...", class: "button ~primary @high" %>
+    </div>
+  </.form>
+</div>

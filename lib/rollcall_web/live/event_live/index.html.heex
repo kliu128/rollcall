@@ -1,0 +1,38 @@
+<h1>Listing Events</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.event_index_path(@socket, :index)}>
+
+  </.modal>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Num people</th>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="events">
+    <%= for event <- @events do %>
+      <tr id={"event-#{event.id}"}>
+        <td><%= event.start_date %></td>
+        <td><%= event.end_date %></td>
+        <td><%= event.num_people %></td>
+        <td><%= event.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event) %></span>
+          <span><%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: event.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Event", to: Routes.event_new_path(@socket, :new) %></span>

@@ -18,13 +18,7 @@
   </li>
 
   <li>
-    <strong>Start hour:</strong>
-    <%= @event.start_hour %>
-  </li>
-
-  <li>
-    <strong>End hour:</strong>
-    <%= @event.end_hour %>
+    <strong>Times:</strong>
   </li>
 
   <li>
@@ -34,5 +28,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span> |
-<span><%= link "Back", to: Routes.event_path(@conn, :index) %></span>
+<span><%= live_patch "Edit", to: Routes.event_show_path(@socket, :edit, @event), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.event_index_path(@socket, :index) %></span>

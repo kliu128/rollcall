@@ -22,4 +22,22 @@ defmodule Rollcall.EventsFixtures do
 
     event
   end
+
+  @doc """
+  Generate a event.
+  """
+  def event_fixture(attrs \\ %{}) do
+    {:ok, event} =
+      attrs
+      |> Enum.into(%{
+        end_date: ~D[2022-06-01],
+        name: "some name",
+        num_people: 42,
+        start_date: ~D[2022-06-01],
+        times: %{}
+      })
+      |> Rollcall.Events.create_event()
+
+    event
+  end
 end

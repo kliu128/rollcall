@@ -1,8 +1,8 @@
 <!--<button class="button button-xl ~blue @high">Log in with Google</button>-->
 <ul class="right">
   <%= if Plug.Conn.get_session(@conn, :user_id) do %>
-  <li><%= link "Log out", to: "/auth/signout" %></li>
+  <li><%= link "Log out", to: Routes.auth_path(@conn, :signout) %></li>
   <% else %>
-  <li><%= link "Sign in with Google", to: "/auth/google" %></li>
+  <li><%= link "Sign in with Google", to: Routes.auth_path(@conn, :request, "google") %></li>
   <% end %>
 </ul>

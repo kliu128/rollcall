@@ -14,20 +14,29 @@ defmodule RollcallWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # Unauthenticated pages
   scope "/", RollcallWeb do
     pipe_through :browser
 
     get "/", PageController, :index
 
-    resources "/events", EventController
+    scope "/auth" do
+      get "/signout", AuthController, :signout
+      get "/:provider", AuthController, :request
+      get "/:provider/callback", AuthController, :callback
+    end
   end
 
-  scope "/auth", RollcallWeb do
+  # Authenticated pages
+  scope "/", RollcallWeb do
     pipe_through :browser
 
-  	get "/signout", AuthController, :signout
-    get "/:provider", AuthController, :request
-    get "/:provider/callback", AuthController, :callback
+    live "/events", EventLive.Index, :index
+    live "/events/new", EventLive.New, :new
+    live "/events/:id/edit", EventLive.Index, :edit
+
+    live "/events/:id", EventLive.Show, :show
+    live "/events/:id/show/edit", EventLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

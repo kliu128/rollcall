@@ -7,7 +7,9 @@ defmodule Rollcall.Events.Event do
     field :name, :string
     field :num_people, :integer, default: 1
     field :start_date, :date
-    field :times, :map
+    field :times, :map, default: %{
+      0 => false,
+    }
     field :user_id, :id
 
     timestamps()
